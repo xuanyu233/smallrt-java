@@ -1,7 +1,7 @@
 public class RayTracingUtils {
-    public static Vec3 normalize(Vec3 v) {
-        return Vec3.div(v, v.length());
-    }
+    // public static Vec3 normalize(Vec3 v) {
+    //     return Vec3.div(v, v.length());
+    // }
 
     public static Vec3 color(Ray r, Scene scene) {
         if(scene.hit(r, 0.001, Double.MAX_VALUE)){
@@ -10,7 +10,8 @@ public class RayTracingUtils {
             // return color;
         }
         
-        Vec3 unitDir = normalize(r.direction());
+        Vec3 unitDir = Vec3.unitVector(r.direction());
+        // Vec3 unitDir = normalize(r.direction());
         double t = 0.5 * (unitDir.y() + 1.0);
         Vec3 color1 = new Vec3(1.0, 1.0, 1.0);
         Vec3 color2 = new Vec3(0.5, 0.7, 1.0);

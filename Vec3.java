@@ -100,6 +100,10 @@ public class Vec3 {
         return new Vec3(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
     }
 
+    public static Vec3 unitVector(Vec3 v){
+        return div(v, v.length());
+    }
+
     public double dot(Vec3 v) {
         return this.x * v.x + this.y * v.y + this.z * v.z;
     }
@@ -135,6 +139,10 @@ public class Vec3 {
 
     public Vec3 div(double v){
         return new Vec3(this.x/v, this.y/v, this.z/v);
+    }
+
+    public Vec3 unitVector(){
+        return div(this, this.length());
     }
 
     public Vec3 minus(){
