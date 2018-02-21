@@ -10,6 +10,10 @@ public class Vec3 {
     public Vec3() {
     }
 
+    public Vec3(double value){
+        this.x = this.y = this.z = value;
+    }
+
     public Vec3(double x, double y, double z) {
         this.x = x;
         this.y = y;

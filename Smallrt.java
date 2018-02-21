@@ -4,7 +4,7 @@ public class Smallrt {
     public static void main(String[] args) {
         int nx = 200;
         int ny = 100;
-        int ns = 10;
+        int ns = 30;
 
         if (args.length >= 1){nx = Integer.parseInt(args[0]);}
         if (args.length >= 2){ny = Integer.parseInt(args[1]);}
@@ -22,15 +22,17 @@ public class Smallrt {
 
         for (int j = ny - 1; j >= 0; j--) {
             for (int i = 0; i < nx; i++) {
-                double u =  (double)i / (double) nx;
-                double v =  (double)j / (double) ny;
-                // double b = 0.2;
-                Vec3 rayDir = Vec3.add(lowerLeftCorner, Vec3.add(horizontal.mul(u), vertical.mul(v)));
-                // Ray r = new Ray(origin, Vec3.add(lowerLeftCorner, Vec3.add(horizontal.mul(u), vertical.mul(v))));
-                Ray r = new Ray(origin, rayDir);
-                Vec3 col = RayTracingUtils.color(r, sphereScene);
-                // Vec3 col = new Vec3(r, g, b);
-                images[index++] = col;
+                Vec3 col = new Vec3(0);
+                for(int s = 0; s < ns; s++){
+                    double u =  (i + Math.random()) / (double) nx;
+                    double v =  (j + Math.random()) / (double) ny;
+                    // double b = 0.2;
+                    Vec3 rayDir = Vec3.add(lowerLeftCorner, Vec3.add(horizontal.mul(u), vertical.mul(v)));
+                    // Ray r = new Ray(origin, Vec3.add(lowerLeftCorner, Vec3.add(horizontal.mul(u), vertical.mul(v))));
+                    Ray r = new Ray(origin, rayDir);
+                    col = col.add(RayTracingUtils.color(r, sphereScene));
+                }
+                images[index++] = Vec3.div(col, ns);
             }
         }
         ImageWriter.writePPM(nx, ny, images, "image");
