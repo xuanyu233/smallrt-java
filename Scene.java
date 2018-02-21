@@ -16,6 +16,7 @@ public class Scene{
         double closestSoFar = tmax;
         for(int i = 0; i < spheres.length; i++){
             if(spheres[i].hit(r, tmin, closestSoFar)){
+                // System.out.println("hit scene");
                 hitAnything = true;
                 closestSoFar = spheres[i].t;
 

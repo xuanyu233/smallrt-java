@@ -7,8 +7,8 @@ public class Ray {
     }
 
     public Ray(Vec3 a, Vec3 b) {
-        this.A = a;
-        this.B = b;
+        this.A = a.clone();
+        this.B = b.clone();
     }
 
     public Vec3 origin() {

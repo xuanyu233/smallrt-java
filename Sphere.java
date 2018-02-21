@@ -40,6 +40,7 @@ public class Sphere implements hitable{
             if(temp < tmax && temp > tmin){
                 this.t = temp;
                 this.hitPosition = r.pointAt(temp);
+                // System.out.println(this.hitPosition + "  " + this.hitPosition.length());
                 this.hitNormal = Vec3.div(Vec3.sub(this.hitPosition, this.center), this.radius);
                 return true;
             }
@@ -47,6 +48,7 @@ public class Sphere implements hitable{
             if(temp < tmax && temp > tmin){
                 this.t = temp;
                 this.hitPosition = r.pointAt(temp);
+                // System.out.println(this.hitPosition + " " + this.hitPosition.length());                
                 this.hitNormal = Vec3.div(Vec3.sub(this.hitPosition, this.center), this.radius);
                 return true;
             }

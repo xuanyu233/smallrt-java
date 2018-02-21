@@ -22,10 +22,14 @@ public class Smallrt {
 
         for (int j = ny - 1; j >= 0; j--) {
             for (int i = 0; i < nx; i++) {
-                double u = (double) i / (double) nx;
-                double v = (double) j / (double) ny;
-                Ray r = new Ray(origin, Vec3.add(lowerLeftCorner, Vec3.add(horizontal.mul(u), vertical.mul(v))));
+                double u =  (double)i / (double) nx;
+                double v =  (double)j / (double) ny;
+                // double b = 0.2;
+                Vec3 rayDir = Vec3.add(lowerLeftCorner, Vec3.add(horizontal.mul(u), vertical.mul(v)));
+                // Ray r = new Ray(origin, Vec3.add(lowerLeftCorner, Vec3.add(horizontal.mul(u), vertical.mul(v))));
+                Ray r = new Ray(origin, rayDir);
                 Vec3 col = RayTracingUtils.color(r, sphereScene);
+                // Vec3 col = new Vec3(r, g, b);
                 images[index++] = col;
             }
         }
