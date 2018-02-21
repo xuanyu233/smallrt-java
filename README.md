@@ -7,7 +7,7 @@ Inspired by
 
 
 - The C++ version output is here:
-![](img/image2.jpg)
+![res](img/image2.jpg)
 
 - But current I can only get this in Java
-![](img/image1.jpg)
+![res_current](img/image1.jpg)
