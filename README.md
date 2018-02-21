@@ -4,3 +4,10 @@ simple, small ray tracing in Java
 Inspired by 
 - [smallpt](http://www.kevinbeason.com/smallpt/)
 - [raytracinginoneweekend](https://github.com/petershirley/raytracinginoneweekend)
+
+
+- The C++ version output is here:
+![](img/image2.jpg)
+
+- But current I can only get this in Java
+![](img/image1.jpg)
