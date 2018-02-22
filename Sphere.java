@@ -40,7 +40,6 @@ public class Sphere implements hitable{
             if(temp < tmax && temp > tmin){
                 this.t = temp;
                 this.hitPosition = r.pointAt(temp);
-                // System.out.println(this.hitPosition + "  " + this.hitPosition.length());
                 this.hitNormal = Vec3.div(Vec3.sub(this.hitPosition, this.center), this.radius);
                 return true;
             }
@@ -48,35 +47,10 @@ public class Sphere implements hitable{
             if(temp < tmax && temp > tmin){
                 this.t = temp;
                 this.hitPosition = r.pointAt(temp);
-                // System.out.println(this.hitPosition + " " + this.hitPosition.length());                
                 this.hitNormal = Vec3.div(Vec3.sub(this.hitPosition, this.center), this.radius);
                 return true;
             }
         }
         return false;
     }
-
-    // public boolean hit(Ray r, double tmin, double tmax){
-    //     Vec3 op = Vec3.sub(this.center, r.origin());
-    //     double dop = r.direction().dot(op);
-    //     double D = dop * dop - op.dot(op) + this.radius * this.radius;
-
-    //     if(D > 0){
-    //         double temp = dop + Math.sqrt(D);
-    //         if(temp < tmax && temp > tmin){
-    //             this.hitPosition = r.pointAt(temp);
-    //             this.hitNormal = Vec3.div(Vec3.sub(this.hitPosition, this.center),this.radius);
-    //             this.t = temp;
-    //             return true;
-    //         }
-    //         temp = dop - Math.sqrt(D);
-    //         if(temp < tmax && temp > tmin){
-    //             this.hitPosition = r.pointAt(temp);
-    //             this.hitNormal = Vec3.div(Vec3.sub(this.hitPosition, this.center),this.radius);
-    //             this.t = temp;
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
 }

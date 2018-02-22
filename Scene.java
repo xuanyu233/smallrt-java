@@ -24,7 +24,6 @@ public class Scene{
                 this.hitNormal = spheres[i].hitNormal;
                 this.t = spheres[i].t;
 
-                return true;
             }
         }
         return hitAnything;
