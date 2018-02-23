@@ -22,6 +22,28 @@ public class RayTracingUtils {
         return p;
     }
 
+    public static Vec3 reflect(Vec3 v, Vec3 n){
+        double t = 2*Vec3.dot(v,n);
+        return Vec3.sub(v, n.mul(2*t));
+    }
+
+    public static boolean ifRefracted(Vec3 v, Vec3 n, double niOverNt){
+        Vec3 uv = Vec3.unitVector(v);
+        double dt = Vec3.dot(uv,n);
+        double discriminant = 1.0 - niOverNt*niOverNt*(1-dt*dt);
+        return discriminant > 0;
+    }
+
+    public static Vec3 refract(Vec3 v, Vec3 n, double niOverNt){
+        Vec3 uv = Vec3.unitVector(v);
+        double dt = Vec3.dot(uv,n);
+        Vec3 ndt = n.mul(dt);
+        double discriminant = 1.0 - niOverNt*niOverNt*(1-dt*dt);
+        Vec3 unvdt = Vec3.sub(uv,ndt);
+        Vec3 nsqrt = n.mul(Math.sqrt(discriminant));
+        return Vec3.sub(unvdt.mul(niOverNt), nsqrt);
+    }
+
     public static Vec3 color(Ray r, Scene scene) {
         if(scene.hit(r, 0.001, Double.MAX_VALUE)){
             Vec3 rayDir = Vec3.add(scene.hitNormal,randomInUnitSphere());
@@ -50,11 +72,39 @@ public class RayTracingUtils {
     }
 
     public static Vec3 color(Ray r, Scene scene, int depth) {
-        if(scene.hit(r, 0.001, Double.MAX_VALUE) && depth < 4){
-            Vec3 rayDir = Vec3.add(scene.hitNormal,randomInUnitSphere());
-            Vec3 col = color(new Ray(scene.hitPosition, rayDir), scene, depth++);
-            Vec3 hitColor = scene.hitColor;
-            return Vec3.mul(col, hitColor);
+        if(scene.hit(r, 0.001, Double.MAX_VALUE) && depth < 40){
+            if(scene.hitMaterial == hitable.Material.DIFF){
+                Vec3 rayDir = Vec3.add(scene.hitNormal,randomInUnitSphere());
+                Vec3 col = color(new Ray(scene.hitPosition, rayDir), scene, depth++);
+                Vec3 hitColor = scene.hitColor;
+                return Vec3.mul(col, hitColor);
+            }else if(scene.hitMaterial == hitable.Material.SPEC){
+                Vec3 reflected = reflect(Vec3.unitVector(r.direction()), scene.hitNormal);
+                Vec3 col = color(new Ray(scene.hitPosition, reflected), scene, depth++);
+                Vec3 hitColor = scene.hitColor;
+                return Vec3.mul(col, hitColor);
+            }else if(scene.hitMaterial == hitable.Material.REFR){
+                Vec3 outNormal;
+                Vec3 reflected = reflect(r.direction(),scene.hitNormal);
+                double niOverNt = 1.5;
+                Vec3 attenuation = new Vec3(1.0,1.0,1.0);
+                Vec3 refracted;
+                Ray scattered;
+                if(Vec3.dot(r.direction(), scene.hitNormal) > 0){
+                    outNormal = Vec3.sub(0,scene.hitNormal);
+                }else{
+                    outNormal = scene.hitNormal;
+                }
+                if(ifRefracted(r.direction(), outNormal, niOverNt)){
+                    refracted = refract(r.direction(),outNormal,niOverNt);
+                    scattered = new Ray(scene.hitPosition, refracted);
+                }else{
+                    scattered = new Ray(scene.hitPosition, reflected);
+                }
+                Vec3 col = color(scattered, scene, depth++);
+                return Vec3.mul(col, attenuation);
+            }
+
         }
         Vec3 unitDir = Vec3.unitVector(r.direction());
         double t = 0.5 * (unitDir.y() + 1.0);

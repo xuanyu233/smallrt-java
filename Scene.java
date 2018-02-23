@@ -2,15 +2,16 @@ public class Scene{
     
     public Sphere[] spheres;
     public Scene(){
-        spheres = new Sphere[2];
-        spheres[0] = new Sphere(new Vec3(0,0,-1), 0.5, new Vec3(0.8, 0.3, 0.3));
-//        spheres[0] = new Sphere(new Vec3(0.8,0,-1), 0.4, new Vec3(0.7, 0.4, 0.2));
-        spheres[1] = new Sphere(new Vec3(0, -100.5, -1), 100, new Vec3(0.2, 0.2, 0.2));
+        spheres = new Sphere[3];
+        spheres[0] = new Sphere(new Vec3(-0.8,0,-1), 0.4, new Vec3(0.8, 0.3, 0.3), hitable.Material.REFR);
+        spheres[1] = new Sphere(new Vec3(0.8,0,-1), 0.4, new Vec3(0.7, 0.4, 0.2), hitable.Material.SPEC);
+        spheres[2] = new Sphere(new Vec3(0, -100.5, -1), 100, new Vec3(0.2, 0.2, 0.2), hitable.Material.DIFF);
     }
 
     public Vec3 hitPosition;
     public Vec3 hitNormal;
     public Vec3 hitColor;
+    public hitable.Material hitMaterial;
     public double t;
 
     public boolean hit(Ray r, double tmin, double tmax){
@@ -26,6 +27,7 @@ public class Scene{
                 this.hitNormal = spheres[i].hitNormal;
                 this.hitColor = spheres[i].color;
                 this.t = spheres[i].t;
+                this.hitMaterial = spheres[i].material;
 
             }
         }
