@@ -22,10 +22,13 @@ public class ImageWriter {
             BufferedWriter writer = new BufferedWriter(new FileWriter("image.ppm"));
             writer.write("P3\n" + w + " " + h + " " + 255 + "\n\n");
             for(int i = 0; i < w*h; i++){
-                int ir = toByte(imageData[i].r() * 255.99);
-                int ig = toByte(imageData[i].g() * 255.99);
-                int ib = toByte(imageData[i].b() * 255.99);
-                writer.write(ir + " " + ig + " " + ib + "   ");
+                // int ir = toByte(imageData[i].r() * 255.99);
+                // int ig = toByte(imageData[i].g() * 255.99);
+                // int ib = toByte(imageData[i].b() * 255.99);
+                int ir = (int)(imageData[i].r() * 255.9);
+                int ig = (int)(imageData[i].g() * 255.9);
+                int ib = (int)(imageData[i].b() * 255.9);
+                writer.write(ir + " " + ig + " " + ib + " \n");
             }
             writer.close();
         }catch(IOException e){
