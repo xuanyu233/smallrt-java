@@ -157,11 +157,15 @@ public class Vec3 {
     }
 
     public Vec3 cross(Vec3 v){
-        return new Vec3(this.y * v.z - this.z * v.y, this.z * v.x - this.x * v.z, this.x * v.y - this.y * v.x);
+        return new Vec3(this.y * v.z - this.z * v.y,
+                        this.z * v.x - this.x * v.z,
+                        this.x * v.y - this.y * v.x);
     }
 
     public static Vec3 cross(Vec3 v1, Vec3 v2){
-        return new Vec3(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
+        return new Vec3(v1.y * v2.z - v1.z * v2.y,
+                        v1.z * v2.x - v1.x * v2.z,
+                        v1.x * v2.y - v1.y * v2.x);
     }
 
     public String toString(){
