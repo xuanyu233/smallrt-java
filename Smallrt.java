@@ -20,19 +20,27 @@ public class Smallrt {
 
         Scene sphereScene = new Scene();
 
-        for (int j = ny - 1; j >= 0; j--) {
+        for (int j = ny-1; j >= 0; j--) {
             for (int i = 0; i < nx; i++) {
-                Vec3 col = new Vec3(0);
-                for(int s = 0; s < ns; s++){
-                    double u =  (i + Math.random()) / (double) nx;
-                    double v =  (j + Math.random()) / (double) ny;
+                // Vec3 col = new Vec3(0);
+                // for(int s = 0; s < ns; s++){
+                    double u =  (double)i /(double) nx;
+                    double v =  (double)j/ (double) ny;
+
+                    // System.out.println("u v " + u + ", " + v);
+
                     // double b = 0.2;
-                    Vec3 rayDir = Vec3.add(lowerLeftCorner, Vec3.add(horizontal.mul(u), vertical.mul(v)));
+                    Vec3 rayDir = Vec3.add(lowerLeftCorner, Vec3.add(Vec3.mul(horizontal, u), Vec3.mul(vertical,v)));
                     // Ray r = new Ray(origin, Vec3.add(lowerLeftCorner, Vec3.add(horizontal.mul(u), vertical.mul(v))));
                     Ray r = new Ray(origin, rayDir);
-                    col = col.add(RayTracingUtils.color(r, sphereScene));
-                }
-                images[index++] = Vec3.div(col, ns);
+                    // col = col.add(RayTracingUtils.color(r));
+                    Vec3 col = RayTracingUtils.color(r);
+
+
+                    // Vec3 col = new Vec3(u, v, 0.2);
+
+                // }
+                images[index++] = col;
             }
         }
         ImageWriter.writePPM(nx, ny, images, "image");
