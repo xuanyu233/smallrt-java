@@ -29,4 +29,13 @@ public class RayTracingUtils {
         Vec3 color2 = new Vec3(0.5, 0.7, 1.0);
         return Vec3.add(color1.mul(1.0 - t), color2.mul(t));
     }
+
+    public static Vec3 color(Ray r){
+        Vec3 unitDir = Vec3.unitVector(r.direction());
+        double t = 0.5*(unitDir.y() + 1.0);
+        Vec3 color1 = new Vec3(1.0,1.0,1.0);
+        Vec3 color2 = new Vec3(0.5,0.7,1.0);
+        return Vec3.add(color1.mul(1.0-t), color2.mul(t));
+    }
+
 }
