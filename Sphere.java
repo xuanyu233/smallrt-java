@@ -2,8 +2,7 @@
  * Sphere
  */
 public class Sphere implements hitable{
-    public enum Material {DIFFUSE, SPECULAR, REFRACTIVE};
-    
+
     public Vec3 center;
     public double radius;
 
@@ -15,6 +14,19 @@ public class Sphere implements hitable{
     public Sphere(Vec3 center, double r){
         this.center = center;
         this.radius = r;
+    }
+
+    public Sphere(Vec3 center, double r, Vec3 color){
+        this.center = center;
+        this.radius = r;
+        this.color = color;
+    }
+
+    public Sphere(Vec3 center, double r, Vec3 color, Material material){
+        this.center = center;
+        this.radius = r;
+        this.color = color;
+        this.material = material;
     }
 
     public Sphere(Vec3 center, double r, Vec3 color, Vec3 emission, Material material){

@@ -32,7 +32,7 @@ public class Smallrt {
 
                     Vec3 rayDir = Vec3.add(lowerLeftCorner, Vec3.add(Vec3.mul(horizontal, u), Vec3.mul(vertical,v)));
                     Ray r = new Ray(origin, rayDir);
-                    col = col.add(RayTracingUtils.color(r, sphereScene));
+                    col = col.add(RayTracingUtils.color(r, sphereScene, 0));
                  }
                  col = col.div(ns);
                  col = new Vec3(Math.sqrt(col.r()), Math.sqrt(col.g()), Math.sqrt(col.b()));

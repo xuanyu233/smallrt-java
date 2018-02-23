@@ -1,7 +1,4 @@
 public class RayTracingUtils {
-    // public static Vec3 normalize(Vec3 v) {
-    //     return Vec3.div(v, v.length());
-    // }
 
     public static double hit_sphere(Vec3 center, double radius, Ray r){
         Vec3 oc = Vec3.sub(r.origin(), center);
@@ -27,7 +24,6 @@ public class RayTracingUtils {
 
     public static Vec3 color(Ray r, Scene scene) {
         if(scene.hit(r, 0.001, Double.MAX_VALUE)){
-//            Vec3 target = Vec3.add(Vec3.add(scene.hitPosition, scene.hitNormal), randomInUnitSphere());
             Vec3 rayDir = Vec3.add(scene.hitNormal,randomInUnitSphere());
             Vec3 col = color(new Ray(scene.hitPosition, rayDir), scene);
             return Vec3.mul(col,0.5);
@@ -51,6 +47,20 @@ public class RayTracingUtils {
         Vec3 color1 = new Vec3(1.0,1.0,1.0);
         Vec3 color2 = new Vec3(0.5,0.7,1.0);
         return Vec3.add(color1.mul(1.0-t), color2.mul(t));
+    }
+
+    public static Vec3 color(Ray r, Scene scene, int depth) {
+        if(scene.hit(r, 0.001, Double.MAX_VALUE) && depth < 4){
+            Vec3 rayDir = Vec3.add(scene.hitNormal,randomInUnitSphere());
+            Vec3 col = color(new Ray(scene.hitPosition, rayDir), scene, depth++);
+            Vec3 hitColor = scene.hitColor;
+            return Vec3.mul(col, hitColor);
+        }
+        Vec3 unitDir = Vec3.unitVector(r.direction());
+        double t = 0.5 * (unitDir.y() + 1.0);
+        Vec3 color1 = new Vec3(1.0, 1.0, 1.0);
+        Vec3 color2 = new Vec3(0.5, 0.7, 1.0);
+        return Vec3.add(color1.mul(1.0 - t), color2.mul(t));
     }
 
 }
