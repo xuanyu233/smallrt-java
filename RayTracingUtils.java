@@ -44,6 +44,13 @@ public class RayTracingUtils {
         return Vec3.sub(unvdt.mul(niOverNt), nsqrt);
     }
 
+    public static double schlick(double cosine, double refIdx){
+        double r0 = (1-refIdx)/(1+refIdx);
+        r0 = r0*r0;
+        return r0 + (1-r0)*Math.pow((1-cosine),5);
+    }
+
+
     public static Vec3 color(Ray r, Scene scene) {
         if(scene.hit(r, 0.001, Double.MAX_VALUE)){
             Vec3 rayDir = Vec3.add(scene.hitNormal,randomInUnitSphere());
@@ -90,14 +97,23 @@ public class RayTracingUtils {
                 Vec3 attenuation = new Vec3(1.0,1.0,1.0);
                 Vec3 refracted;
                 Ray scattered;
+                double reflectProb;
+                double cosine;
                 if(Vec3.dot(r.direction(), scene.hitNormal) > 0){
                     outNormal = Vec3.sub(0,scene.hitNormal);
+                    cosine = niOverNt*Vec3.dot(r.direction(), scene.hitNormal) / r.direction().length();
                 }else{
                     outNormal = scene.hitNormal;
+                    cosine = -Vec3.dot(r.direction(), scene.hitNormal) / r.direction().length();
                 }
                 if(ifRefracted(r.direction(), outNormal, niOverNt)){
                     refracted = refract(r.direction(),outNormal,niOverNt);
-                    scattered = new Ray(scene.hitPosition, refracted);
+                    reflectProb = schlick(cosine, niOverNt);
+                    if(Math.random() < reflectProb){
+                        scattered = new Ray(scene.hitPosition, reflected);
+                    }else{
+                        scattered = new Ray(scene.hitPosition, refracted);
+                    }
                 }else{
                     scattered = new Ray(scene.hitPosition, reflected);
                 }
