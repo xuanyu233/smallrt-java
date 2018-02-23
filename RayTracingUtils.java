@@ -79,11 +79,21 @@ public class RayTracingUtils {
     }
 
     public static Vec3 color(Ray r, Scene scene, int depth) {
-        if(scene.hit(r, 0.001, Double.MAX_VALUE) && depth < 40){
+        if(scene.hit(r, 0.001, Double.MAX_VALUE) && depth < 10){
             if(scene.hitMaterial == hitable.Material.DIFF){
                 Vec3 rayDir = Vec3.add(scene.hitNormal,randomInUnitSphere());
                 Vec3 col = color(new Ray(scene.hitPosition, rayDir), scene, depth++);
-                Vec3 hitColor = scene.hitColor;
+                Vec3 hitColor = new Vec3(0);
+                double sines = Math.sin(10*scene.hitPosition.x())*Math.sin(10*scene.hitPosition.y())*Math.sin(10*scene.hitPosition.z());
+                if(sines < 0){
+                    hitColor.x = 0.2;
+                    hitColor.y = 0.3;
+                    hitColor.z = 0.1;
+                }else{
+                    hitColor.x = 0.9;
+                    hitColor.y = 0.9;
+                    hitColor.z = 0.9;
+                }
                 return Vec3.mul(col, hitColor);
             }else if(scene.hitMaterial == hitable.Material.SPEC){
                 Vec3 reflected = reflect(Vec3.unitVector(r.direction()), scene.hitNormal);
