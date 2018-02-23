@@ -19,7 +19,7 @@ public class Smallrt {
         Vec3 vertical = new Vec3(0.0, 2.0, 0.0);
         Vec3 origin = new Vec3(0.0, 0.0, 0.0);
 
-//        Scene sphereScene = new Scene();
+        Scene sphereScene = new Scene();
 
         Random rand = new Random();
 
@@ -31,9 +31,8 @@ public class Smallrt {
                     double v =  ((double)j + rand.nextDouble()) / (double) ny;
 
                     Vec3 rayDir = Vec3.add(lowerLeftCorner, Vec3.add(Vec3.mul(horizontal, u), Vec3.mul(vertical,v)));
-                    // Ray r = new Ray(origin, Vec3.add(lowerLeftCorner, Vec3.add(horizontal.mul(u), vertical.mul(v))));
                     Ray r = new Ray(origin, rayDir);
-                    col = col.add(RayTracingUtils.color(r));
+                    col = col.add(RayTracingUtils.color(r, sphereScene));
                  }
                 images[index++] = col.div(ns);
             }

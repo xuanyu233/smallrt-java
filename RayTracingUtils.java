@@ -15,15 +15,22 @@ public class RayTracingUtils {
         return (-b - Math.sqrt(delta)) / (2.0 * a);
     }
 
+    public static Vec3 randomInUnitSphere(){
+        Vec3 p;
+        do{
+            p = new Vec3(Math.random(), Math.random(), Math.random());
+            p = p.sub(new Vec3(1,1,1)).mul(2.0);
+
+        }while(p.squareLength() >= 1.0);
+        return p;
+    }
+
     public static Vec3 color(Ray r, Scene scene) {
         if(scene.hit(r, 0.001, Double.MAX_VALUE)){
-            Vec3 N = scene.hitNormal;
-            Vec3 col =  Vec3.mul(N, 0.5);
-            // System.out.println(col);
-            return col;
+            Vec3 target = Vec3.add(Vec3.add(scene.hitPosition, scene.hitNormal), randomInUnitSphere());
+            return Vec3.mul(color(new Ray(scene.hitPosition, target.sub(scene.hitPosition))), 0.5);
         }
         Vec3 unitDir = Vec3.unitVector(r.direction());
-        // Vec3 unitDir = normalize(r.direction());
         double t = 0.5 * (unitDir.y() + 1.0);
         Vec3 color1 = new Vec3(1.0, 1.0, 1.0);
         Vec3 color2 = new Vec3(0.5, 0.7, 1.0);
