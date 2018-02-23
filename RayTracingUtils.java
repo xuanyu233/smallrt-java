@@ -19,7 +19,7 @@ public class RayTracingUtils {
         Vec3 p;
         do{
             p = new Vec3(Math.random(), Math.random(), Math.random());
-            p = p.sub(new Vec3(1,1,1)).mul(2.0);
+            p = p.mul(2.0).sub(new Vec3(1.0,1.0,1.0));
 
         }while(p.squareLength() >= 1.0);
         return p;
@@ -27,8 +27,10 @@ public class RayTracingUtils {
 
     public static Vec3 color(Ray r, Scene scene) {
         if(scene.hit(r, 0.001, Double.MAX_VALUE)){
-            Vec3 target = Vec3.add(Vec3.add(scene.hitPosition, scene.hitNormal), randomInUnitSphere());
-            return Vec3.mul(color(new Ray(scene.hitPosition, target.sub(scene.hitPosition))), 0.5);
+//            Vec3 target = Vec3.add(Vec3.add(scene.hitPosition, scene.hitNormal), randomInUnitSphere());
+            Vec3 rayDir = Vec3.add(scene.hitNormal,randomInUnitSphere());
+            Vec3 col = color(new Ray(scene.hitPosition, rayDir), scene);
+            return Vec3.mul(col,0.5);
         }
         Vec3 unitDir = Vec3.unitVector(r.direction());
         double t = 0.5 * (unitDir.y() + 1.0);

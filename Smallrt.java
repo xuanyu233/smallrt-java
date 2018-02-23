@@ -34,7 +34,10 @@ public class Smallrt {
                     Ray r = new Ray(origin, rayDir);
                     col = col.add(RayTracingUtils.color(r, sphereScene));
                  }
-                images[index++] = col.div(ns);
+                 col = col.div(ns);
+                 col = new Vec3(Math.sqrt(col.r()), Math.sqrt(col.g()), Math.sqrt(col.b()));
+                 images[index++] = col;
+
             }
         }
         ImageWriter.writePPM(nx, ny, images, "image");
