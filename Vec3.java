@@ -26,6 +26,24 @@ public class Vec3 {
         this.z = v.z;
     }
 
+    public void setVec3(Vec3 v){
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+    }
+
+    public void setVec3(double value){
+        this.x = value;
+        this.y = value;
+        this.z = value;
+    }
+
+    public void setVec3(double x, double y, double z){
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
     public double x() {
         return this.x;
     }
