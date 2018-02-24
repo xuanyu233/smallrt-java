@@ -2,11 +2,11 @@ public class Scene{
     
     public Sphere[] spheres;
     public Scene(){
-        spheres = new Sphere[2];
-        spheres[0] = new Sphere(new Vec3(0,0,-1), 0.5, new Vec3(0.0, 0.2, 0.7), hitable.Material.REFR);
-        spheres[1] = new Sphere(new Vec3(0,-100.5,-1), 100, new Vec3(0.7, 0.2, 0.2), hitable.Material.DIFF);
-//        spheres[2] = new Sphere(new Vec3(0, 0, -1), 0.4, new Vec3(0.2, 0.2, 0.7), hitable.Material.REFR);
-//        spheres[3] = new Sphere(new Vec3(-1,0,-1), 0.5, new Vec3(0.7, 0.4, 0.2), hitable.Material.SPEC);
+        spheres = new Sphere[4];
+        spheres[0] = new Sphere(new Vec3(-0.6,0,-1), 0.3, new Vec3(0.0, 0.2, 0.7), hitable.Material.SPEC);
+        spheres[1] = new Sphere(new Vec3(0,-100.5,-1), 100, new Vec3(0.7, 0.2, 0.2), hitable.Material.SPEC);
+        spheres[2] = new Sphere(new Vec3(0.6, 0, -1), 0.3, new Vec3(0.2, 0.2, 0.7), hitable.Material.REFR);
+        spheres[3] = new Sphere(new Vec3(0,0,-0.5), 0.3, new Vec3(0.7, 0.4, 0.2), hitable.Material.REFR);
 //        spheres[2] = new Sphere(new Vec3(0, -100.5, -1), 100, new Vec3(0.2, 0.2, 0.2), hitable.Material.DIFF);
     }
 

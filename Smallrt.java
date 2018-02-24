@@ -32,10 +32,10 @@ public class Smallrt {
                     double v =  ((double)j + rand.nextDouble()) / (double) ny;
 
                     Ray r = cam.getRay(u,v);
-                    col = col.add(RayTracingUtils.color(r, sphereScene, 0));
+                    col.add(RayTracingUtils.color(r, sphereScene, 0));
                  }
-                 col = col.div(ns);
-                 col = new Vec3(Math.sqrt(col.r()), Math.sqrt(col.g()), Math.sqrt(col.b()));
+                 col.div(ns);
+                 col.setVec3(Math.sqrt(col.r()), Math.sqrt(col.g()), Math.sqrt(col.b()));
                  images[index++] = col;
 
             }
