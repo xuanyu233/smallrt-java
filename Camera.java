@@ -33,10 +33,10 @@ public class Camera {
 //        Vec3 temp2 = Vec3.sub(temp1, halfHeightV);
 //        this.lowerLeftCorner = Vec3.sub(temp2, w);
 //
-        this.lowerLeftCorner = Vec3.sub(lookFrom, Vec3.add(u.mul(halfWidth), Vec3.add(v.mul(halfHeight), w)));
+        this.lowerLeftCorner = Vec3.sub(lookFrom, Vec3.add(Vec3.mul(u,halfWidth), Vec3.add(Vec3.mul(v,halfHeight), w)));
 
-        this.horizontal = u.mul(2*halfWidth);
-        this.vertical = v.mul(2*halfHeight);
+        this.horizontal = Vec3.mul(u,2*halfWidth);
+        this.vertical = Vec3.mul(v,2*halfHeight);
 
     }
 

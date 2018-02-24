@@ -124,36 +124,52 @@ public class Vec3 {
         return new Vec3(value / v.x, value / v.y, value /v.z);
     }
 
-    public Vec3 add(Vec3 v) {
-        return new Vec3(this.x + v.x, this.y + v.y, this.z + v.z);
+    public void add(Vec3 v) {
+        this.x += v.x;
+        this.y += v.y;
+        this.z += v.z;
     }
 
-    public Vec3 add(double value) {
-        return new Vec3(this.x + value, this.y + value, this.z + value);
+    public void add(double value) {
+        this.x += value;
+        this.y += value;
+        this.z += value;
     }
 
-    public Vec3 sub(Vec3 v) {
-        return new Vec3(this.x - v.x, this.y - v.y, this.z - v.z);
+    public void sub(Vec3 v) {
+        this.x -= v.x;
+        this.y -= v.y;
+        this.z -= v.z;
     }
 
-    public Vec3 sub(double value) {
-        return new Vec3(this.x - value, this.y - value, this.z - value);
+    public void sub(double value) {
+        this.x -= value;
+        this.y -= value;
+        this.z -= value;
     }
 
-    public Vec3 mul(Vec3 v) {
-        return new Vec3(this.x * v.x, this.y * v.y, this.z * v.z);
+    public void mul(Vec3 v) {
+        this.x *= v.x;
+        this.y *= v.y;
+        this.z *= v.z;
     }
 
-    public Vec3 mul(double value) {
-        return new Vec3(this.x * value, this.y * value, this.z * value);
+    public void mul(double value) {
+        this.x *= value;
+        this.y *= value;
+        this.z *= value;
     }
 
-    public Vec3 div(Vec3 v){
-        return new Vec3(this.x/v.x, this.y/v.y, this.z/v.z);
+    public void div(Vec3 v){
+        this.x /= v.x;
+        this.y /= v.y;
+        this.z /= v.z;
     }
 
-    public Vec3 div(double value){
-        return new Vec3(this.x/value, this.y/value, this.z/value);
+    public void div(double value){
+        this.x /= value;
+        this.y /= value;
+        this.z /= value;
     }
 
     public static Vec3 unitVector(Vec3 v){
@@ -161,9 +177,9 @@ public class Vec3 {
         return new Vec3(v.x/len, v.y/len, v.z/len);
     }
 
-    public Vec3 unitVector(){
+    public void unitVector(){
         double len = Math.sqrt(this.x * this.x + this.y*this.y + this.z*this.z);
-        return new Vec3(this.x / len, this.y / len, this.z / len);
+        this.div(len);
     }
 
     public double dot(Vec3 v){
@@ -174,10 +190,11 @@ public class Vec3 {
         return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
     }
 
-    public Vec3 cross(Vec3 v){
-        return new Vec3(this.y * v.z - this.z * v.y,
-                        this.z * v.x - this.x * v.z,
-                        this.x * v.y - this.y * v.x);
+    public void cross(Vec3 v){
+        double x = this.y * v.z - this.z * v.y;
+        double y = this.z * v.x - this.x * v.z;
+        double z = this.x * v.y - this.y * v.x;
+        this.setVec3(x, y, z);
     }
 
     public static Vec3 cross(Vec3 v1, Vec3 v2){
